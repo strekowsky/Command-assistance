@@ -92,9 +92,9 @@ c = conn.cursor()
 
 # Delete hashtag from the next three rows to create table person, sudivisions, tasks - only with first run
 
-# c.execute("""CREATE TABLE persons (rank text, first_name text, last_name text, pesel text, date_of_birth text, place_of_birth text, father_name text, date_of_join text, position text, gender text, adnotations text, photo text, subdivision text, id integer)""")
-# c.execute("CREATE TABLE subdivisions (subdivision text)")
-# c.execute("CREATE TABLE tasks (title text, responsible text, entryDate text, endDate text, taskId integer, describe text, tag text)")
+#c.execute("""CREATE TABLE persons (rank text, first_name text, last_name text, pesel text, date_of_birth text, place_of_birth text, father_name text, date_of_join text, position text, gender text, adnotations text, photo text, subdivision text, id integer)""")
+#c.execute("CREATE TABLE subdivisions (subdivision text)")
+#c.execute("CREATE TABLE tasks (title text, responsible text, entryDate text, endDate text, taskId integer, describe text, tag text)")
 conn.commit()
 conn.close()
 
@@ -905,10 +905,13 @@ def delete_subdivision():
     c = conn.cursor()
     try:
         index_subdivision = listbox_subdivision.curselection()[0]
+        name = listbox_subdivision.get(listbox_subdivision.curselection())
+        c.execute("DELETE FROM subdivisions WHERE subdivision = ?", (name,))
+
     except:
         None
     index1 = index_subdivision + 1
-    c.execute("DELETE FROM subdivisions WHERE oid = ?", (index1,))
+    #c.execute("DELETE FROM subdivisions WHERE subdivision = ?", (name1,))
     conn.commit()
     conn.close()
     subdivisions_combobox_update()
